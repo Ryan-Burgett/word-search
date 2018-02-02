@@ -61,27 +61,24 @@ int main(){
 	printf("Please enter a file name:\n");
 	scanf("%s", fileName);
 
-	/*initscr();
-	refresh();*/
 
 	wordCount = readWords(wordlist, fileName);
 
 	if(DEBUG == 1){
 		for(i = 0; i<wordCount; i++){
-			//fprintf(stderr,"%s\n", wordlist[i]);
+			fprintf(stderr,"%s\n", wordlist[i]);
 		}
 
-		//fprintf(stderr,"%d\t%d\n", randCol(col), randRow(row));
+		fprintf(stderr,"%d\t%d\n", randCol(col), randRow(row));
 	}
 
 	//char finalPuzzle[row][col];
 	char wordSearch[MAXROWS][MAXCOLS];
 
 	clearPuzzle(row,col, wordSearch);
-	//clearPuzzle(row,col, finalPuzzle);
-	//fprintf(stderr,"cleared puzzle\n");
+
 	placeWord(wordCount,row,col,wordSearch,wordlist);
-	//fprintf(stderr,"placed words\n");
+
 	if(FAILS == 100){
 		printf("Gerneration Failed");
 	}
@@ -91,17 +88,6 @@ int main(){
 		printf("\n\n\n");
 		draw_puzzle(row,col,wordSearch);
 	}
-
-
-	//refresh();
-
-	/*while(1){
-		scanf("%d", &end);
-		if(end == 1){
-			endwin();
-
-		}
-	}*/
 	return 0;
 }
 
@@ -178,17 +164,14 @@ void placeWord(int numWords,int rows,int cols,char puzzle[MAXROWS][MAXCOLS],char
 
 		if(USED[i] == 0){
 			for(j=0; j<strlen(buf); j++){
-				//fprintf(stderr,"J = %d\n", j);
+				
 				if(FAILS == 100){
 					//endwin();
 					break;
 				}
-				//seg fault after this comment
-				//fprintf(stderr, "row = %d col:%d\n", row, col);
-				if(puzzle[row][col] != ' '){
-					//fprintf(stderr, "First condition succeeded");
+				
+				if(puzzle[row][col] != ' '){	
 					if(buf[j] != puzzle[row][col]){
-						//fprintf(stderr, "Second condition succeeded");
 						USED[i]=0;
 						FAILS++;
 						placeWord(numWords,rows, cols,puzzle,words);
@@ -229,9 +212,7 @@ void placeWord(int numWords,int rows,int cols,char puzzle[MAXROWS][MAXCOLS],char
 
 			//Prints words to puzzle
 			for(k=0; k<strlen(buf); k++){
-				//fprintf(stderr,"K = %d\n", k);
 				if(FAILS == 100){
-					//endwin();
 					break;
 				}
 				puzzle[x][y] = buf[k];
